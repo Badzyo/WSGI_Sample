@@ -22,7 +22,7 @@ class WSGIApp:
 class Response:
     """
     Response builder.
-    As an example, it generates a string
+    As an example, it generates a bytearray
     containing the HTTP request method and URL path
     """
     def __init__(self, environ):
@@ -35,7 +35,6 @@ class Response:
         self.body = bytearray(self.environ['REQUEST_METHOD'] + ': ' +
                               self.environ['PATH_INFO'],
                               'utf-8')
-        pass
 
 
 waitress.serve(WSGIApp, host='127.0.0.1', port=8080)
