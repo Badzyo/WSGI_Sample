@@ -1,10 +1,3 @@
-"""
-This app runs a simple local HTTP server on http://localhost:8080
-It uses Waitress WSGI server
-"""
-import waitress
-
-
 class WSGIApp:
     """
     Implemention of WSGI interface according to PEP-0333
@@ -27,14 +20,11 @@ class Response:
     """
     def __init__(self, environ):
         self.environ = environ
-        self.__calculateResponse()
+        self.__calculate_response()
 
-    def __calculateResponse(self):
+    def __calculate_response(self):
         self.headers = [('Content-type', 'text/plain')]
         self.status = '200 OK'
         self.body = bytearray(self.environ['REQUEST_METHOD'] + ': ' +
                               self.environ['PATH_INFO'],
                               'utf-8')
-
-
-waitress.serve(WSGIApp, host='127.0.0.1', port=8080)
