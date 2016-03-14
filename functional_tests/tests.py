@@ -6,7 +6,7 @@ import requests
 
 class FunctionalTest(unittest.TestCase):
     """
-    Еhe expected functionality:
+    The expected functionality:
     1.  POST: http://<target_url>/import:
         input JSON data with 3 fields:
         {
