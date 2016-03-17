@@ -25,12 +25,16 @@ class FunctionalTest(unittest.TestCase):
 
     def test_requests(self):
         url = '{}import'.format(self.target_url)
+
+        # Valid input test
         r = requests.post(url, data=json.dumps(self.request_body))
         self.assertEqual(r.content, b'OK')
 
+        # Invalid input test
         r = requests.post(url, data='{"junk": "cc45t3tg3"}')
         self.assertEqual(r.content, b'FAIL')
 
+        # Get the last posted data
         url = '{}last'.format(self.target_url)
         r = requests.get(url)
         content = json.loads(r.content.decode('utf-8'))
