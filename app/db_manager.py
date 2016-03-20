@@ -1,4 +1,5 @@
 from psycopg2 import connect
+from .config import config
 
 
 class PGManager:
@@ -19,9 +20,8 @@ class PGManager:
                       FROM     USER_DATA
                       ORDER BY DATA_ID DESC LIMIT 1;'''
 
-    def __init__(self, db, user, password):
-        params = "dbname={} user={} password={}".format(db, user, password)
-        self._conn = connect(params)
+    def __init__(self):
+        self._conn = connect(self._conn_parameters)
         cursor = self._conn.cursor()
         cursor.execute(self.tbl_create_query)
         self._conn.commit()
@@ -29,6 +29,14 @@ class PGManager:
 
     def __del__(self):
         self._conn.close()
+
+    @property
+    def _conn_parameters(self):
+        parameters = ''
+        for key, value in config.databases.postgres.items():
+            if value is not None:
+                parameters += '{}={} '.format(key, value)
+        return parameters
 
     def write_data(self, data):
         cursor = self._conn.cursor()
@@ -51,4 +59,5 @@ class PGManager:
         cursor.close()
         return prev_data
 
-db = PGManager('test', 'pyuser', '123456')
+
+db = PGManager()

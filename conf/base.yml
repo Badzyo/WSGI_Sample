@@ -1,0 +1,11 @@
+server:
+    host: 127.0.0.1
+    port: 8080
+
+data_sourses:
+    postgres:
+        dbname: test
+        user: pyuser
+        password: 123456
+        host:
+        port:
