@@ -1,4 +1,4 @@
-from .db_manager import db
+from .dbmanagers.base import db
 import json
 
 

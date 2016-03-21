@@ -1,8 +1,11 @@
 from psycopg2 import connect
-from .config import config
+from ..config import config
 
 
 class PGManager:
+    """
+    Postgres database manager for application
+    """
 
     tbl_create_query = '''CREATE TABLE IF NOT EXISTS USER_DATA (
                           DATA_ID BIGSERIAL PRIMARY KEY,
@@ -58,6 +61,3 @@ class PGManager:
         self._conn.commit()
         cursor.close()
         return prev_data
-
-
-db = PGManager()
